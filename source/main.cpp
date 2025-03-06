@@ -70,7 +70,14 @@ int main() {
     
     std::string title = "Qobloqc Client version 0.0.1";
     
-    std::cout << title << std::endl;
+    std::cout << title;
+    
+    #ifdef _WIN32
+        std::cout << " running on Windows" << std::endl;
+    #else
+        std::cout << " not running on Windows" << std::endl;
+    #endif
+    
     std::cout << "" << std::endl;
     std::cout << "This software is licensed under the GNU GPLv3." << std::endl;
     std::cout << "For more information, see the LICENSE.txt file found in the source code." << std::endl;
