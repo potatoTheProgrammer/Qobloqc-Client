@@ -66,17 +66,37 @@ class Window {
         
 };
 
-int main() {
+int main(int argc, char *argv[]) {
+    
+    bool debug_mode = false;
+    
+    std::string debug_text;
+    
+    std::string debug_idk("debug");
+    
+    if (argc >= 2) {
+        if (argv[1] == debug_idk) {
+            debug_mode = true;
+        }
+    }
+    
+    if (debug_mode == true) {
+        debug_text = " (Debug mode)";
+    } else {
+        debug_text = "";
+    }
     
     std::string title = "Qobloqc Client version 0.0.1";
     
     std::cout << title;
     
     #ifdef _WIN32
-        std::cout << " running on Windows" << std::endl;
+        std::cout << " running on Windows";
     #else
-        std::cout << " not running on Windows" << std::endl;
+        std::cout << " not running on Windows";
     #endif
+    
+    std::cout << debug_text << std::endl;
     
     std::cout << "" << std::endl;
     std::cout << "This software is licensed under the GNU GPLv3." << std::endl;
