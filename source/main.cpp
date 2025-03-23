@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+
 #include <windows.h>
 
 static bool running = true;
@@ -106,6 +108,14 @@ int main(int argc, char *argv[]) {
     std::cout << "" << std::endl;
     
     std::cout << "Hello World!" << std::endl;
+    
+    std::ofstream test_file("test_file.txt");
+    if (test_file.is_open()) {
+        
+        test_file << "Hello!";
+        test_file.close();
+        
+    }
     
     std::string window_id = "Main";
     const char *title_c = title.c_str();
