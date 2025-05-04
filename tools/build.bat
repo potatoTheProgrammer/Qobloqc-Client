@@ -9,7 +9,7 @@ pause > nul
 
 echo.
 echo Compiling...
-g++ -o build/Qobloqc.exe source/main.cpp -static-libgcc -static-libstdc++
+g++ -o build/Qobloqc.exe -I headers source/main.cpp source/display.cpp -static-libgcc -static-libstdc++
 echo.
 
 echo Done! Press any key to close the builder.
