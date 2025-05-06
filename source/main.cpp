@@ -1,3 +1,10 @@
+/*  main.cpp
+
+This is the entry point of the program.
+It does everything you'd expect a "main.cpp" to do: bringing everything that makes up the Qobloqc Client together.
+
+*/
+
 #include <iostream>
 #include <fstream>
 

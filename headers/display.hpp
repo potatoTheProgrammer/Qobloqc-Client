@@ -1,6 +1,4 @@
-/*
-
-display.hpp
+/*  display.hpp
 
 This header provides the (eventually) multi-platform Display class. Currently it's simply a wrapper for window creation on Windows.
 

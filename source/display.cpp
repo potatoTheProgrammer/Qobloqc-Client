@@ -1,6 +1,4 @@
-/*
-
-display.cpp
+/*  display.cpp
 
 This source file implements functions from display.hpp.
 
