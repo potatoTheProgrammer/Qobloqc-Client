@@ -7,6 +7,7 @@ It does everything you'd expect a "main.cpp" to do: bringing everything that mak
 
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 #include <windows.h>
 
@@ -119,7 +120,8 @@ int main(int argc, char *argv[]) {
     std::cout << "Hello World!" << std::endl;
     Display my_display;
     
-    std::ofstream test_file("test_file.txt");
+    std::filesystem::create_directory("Qobloqc");
+    std::ofstream test_file("Qobloqc/test_file.txt");
     if (test_file.is_open()) {
         
         test_file << "Hello!";
