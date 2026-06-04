@@ -9,7 +9,7 @@ pause > nul
 
 echo.
 echo Compiling...
-g++ -std=c++17 -o build/Qobloqc.exe -I include -I data/generated src/main.cpp src/display.cpp misc/icon.res -static-libgcc -static-libstdc++
+g++ -std=c++17 -o build/Qobloqc.exe -I include -I data/generated src/main.cpp src/display.cpp src/generated/builtin_textures.cpp misc/icon.res -static-libgcc -static-libstdc++
 echo.
 
 echo Done! Press any key to close the builder.
