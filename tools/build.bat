@@ -1,5 +1,5 @@
 :: yeah im using a .bat file to compile, cry about it
-:: and yeah im using mingw cry about it
+:: and yeah im using gcc because i couldnt be bothered to learn cmake cry about it
 
 @echo off
 cd ..
@@ -9,7 +9,7 @@ pause > nul
 
 echo.
 echo Compiling...
-g++ -std=c++17 -o build/Qobloqc.exe -I include -I data/generated src/main.cpp src/display.cpp src/generated/builtin_textures.cpp misc/icon.res -static-libgcc -static-libstdc++
+g++ -std=c++17 -o build/Qobloqc.exe -I include -I data/generated src/main.cpp src/display.cpp src/generated/builtin_textures.cpp src/nodes.cpp src/node_map.cpp misc/icon.res -static-libgcc -static-libstdc++
 echo.
 
 echo Done! Press any key to close the builder.

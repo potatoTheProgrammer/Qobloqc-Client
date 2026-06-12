@@ -9,74 +9,9 @@ It does everything you'd expect a "main.cpp" to do: bringing everything that mak
 #include <fstream>
 #include <filesystem>
 
-#include <windows.h>
-
 #include "display.hpp"
-
-static bool running = true;
-static HWND window;
-
-class Window {
-    public:
-        
-        static LRESULT CALLBACK windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
-            LRESULT result = 0;
-            
-            switch(msg) {
-                case WM_CLOSE: {
-                    running = false;
-                    break;
-                }
-                default: {
-                    result = DefWindowProcA(window, msg, wParam, lParam);
-                }
-            }
-            
-            return result;
-            
-        }
-        
-        Window(int width, int height, const char* title, const char* window_id) {
-            HINSTANCE instance = GetModuleHandleA(0);
-            
-            WNDCLASSA wc = {};
-            wc.hInstance = instance;
-            wc.hIcon = LoadIcon(instance, IDI_APPLICATION);
-            wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-            wc.lpszClassName = window_id;
-            wc.lpfnWndProc = windows_window_callback;
-            
-            bool success = true;
-            
-            if (!RegisterClassA(&wc)) {
-                std::cout << "Failed to create window class :(" << std::endl;
-                success = false;
-            }
-            
-            window = CreateWindowExA(0, window_id, title, WS_OVERLAPPEDWINDOW, 100, 100, width, height, NULL, NULL, instance, NULL);
-            
-            if (window == NULL) {
-                std::cout << "Failed to create window :(" << std::endl;
-                success = false;
-            }
-            
-            if (success == true) {
-                std::cout << "Successfully created a window! :D" << std::endl;
-                ShowWindow(window, SW_SHOW);
-            }
-            
-        }
-        
-        void update_window() {
-            MSG msg;
-            
-            while (PeekMessageA(&msg, window, 0, 0, PM_REMOVE)) {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-        }
-        
-};
+#include "node_map.hpp"
+#include "nodes.hpp"
 
 int main(int argc, char *argv[]) {
     
@@ -98,7 +33,7 @@ int main(int argc, char *argv[]) {
         debug_text = "";
     }
     
-    std::string title = "Qobloqc Client version 0.0.1";
+    std::string title = "Qobloqc Client version 0.1.0";
     
     std::cout << title;
     
@@ -118,7 +53,6 @@ int main(int argc, char *argv[]) {
     std::cout << "" << std::endl;
     
     std::cout << "Hello World!" << std::endl;
-    Display my_display;
     
     std::filesystem::create_directory("Qobloqc");
     std::ofstream test_file("Qobloqc/test_file.txt");
@@ -133,10 +67,32 @@ int main(int argc, char *argv[]) {
     const char *title_c = title.c_str();
     const char *window_id_c = window_id.c_str();
     
-    Window my_window(800, 600, title_c, window_id_c);
+    std::cout << std::endl;
     
-    while (running) {
-        my_window.update_window();
+    NodeMap my_node_map{};
+    std::cout << "Trying to create \"Root\"..." << std::endl;
+    my_node_map.create_node("Node", "Root");
+    std::cout << "Trying to create \"Root.Test1\"..." << std::endl;
+    my_node_map.create_node("Node", "Root.Test1");
+    std::cout << "Trying to create \"Root.Test2\"..." << std::endl;
+    my_node_map.create_node("Node", "Root.Test2");
+    std::cout << "Trying to create \"Root.Test2.Test3\"..." << std::endl;
+    my_node_map.create_node("Node", "Root.Test2.Test3");
+    std::cout << "Trying to create \"Root.Test4.Test5\"..." << std::endl;
+    my_node_map.create_node("Node", "Root.Test4.Test5");
+    std::cout << "Trying to create \"Root..Test6\"..." << std::endl;
+    my_node_map.create_node("Node", "Root..Test6");
+    std::cout << "Trying to create \"\"..." << std::endl;
+    my_node_map.create_node("Node", "");
+    std::cout << "Trying to create \".Root.Test7\"..." << std::endl;
+    my_node_map.create_node("Node", ".Root.Test7");
+    std::cout << "Trying to create \"Root.Test8.\"..." << std::endl;
+    my_node_map.create_node("Node", "Root.Test8.");
+    
+    Display my_display(800, 600, title_c, window_id_c);
+    
+    while (my_display.running) {
+        my_display.update_window();
     }
     
     return 0;
