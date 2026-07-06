@@ -2,6 +2,8 @@
 
 Welcome! idk what to put here lol
 
+To build the Qobloqc Client, you'll need CMake version 3.22.1 or above.
+
 The Qobloqc Client is licensed under the GNU GPLv3. For more information, see the LICENSE.txt file included within this repository.
 Please note that pull requests are disabled as we are currently not looking for contributors.
 

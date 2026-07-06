@@ -7,6 +7,7 @@ This source file defines node maps.
 #include <map>
 #include <memory>
 #include <iostream>
+#include <vector>
 
 #include "node_map.hpp"
 #include "nodes.hpp"
@@ -59,4 +60,56 @@ bool NodeMap::validate_node_path(std::string path) {
     };
     
     return true;
+};
+
+void NodeMap::list_nodes() {
+    for (const auto& [key, value] : nodes) {
+        std::cout << key << std::endl;
+    };
+};
+
+std::vector<Node*> NodeMap::get_nodes_with_prefix(std::string prefix) {
+    std::vector<Node*> node_vector;
+    
+    auto node_iterator = nodes.lower_bound(prefix);
+    while (node_iterator != nodes.end()) {
+        if (node_iterator -> first.rfind(prefix, 0) == 0) {
+            node_vector.push_back(node_iterator -> second.get());
+            ++node_iterator;
+        } else {
+            break;
+        };
+    };
+    
+    return node_vector;
+};
+
+std::vector<std::string> NodeMap::get_node_keys_with_prefix(std::string prefix) {
+    std::vector<std::string> key_vector;
+    
+    auto node_iterator = nodes.lower_bound(prefix);
+    while (node_iterator != nodes.end()) {
+        if (node_iterator -> first.rfind(prefix, 0) == 0) {
+            key_vector.push_back(node_iterator -> first);
+            ++node_iterator;
+        } else {
+            break;
+        };
+    };
+    
+    return key_vector;
+};
+
+void NodeMap::delete_node(Node* node) {
+    std::string input_node_path = node -> get_path();
+    
+    std::string start_path = input_node_path + ".";
+    auto start_iterator = nodes.lower_bound(start_path);
+    
+    std::string end_path = start_path;
+    end_path.back()++;
+    auto end_iterator = nodes.lower_bound(end_path);
+    
+    nodes.erase(input_node_path);
+    nodes.erase(start_iterator, end_iterator);
 };
